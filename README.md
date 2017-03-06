@@ -1,7 +1,7 @@
 MyFileChooser
 ================================================================================
 
-JavaFX用に独自にラッピングしたユーティリティクラス。
+JavaFX用に独自にラッピングしたFileChooserクラス。
 
 - Version      : 1.0.0
 - Java Version : 1.8.0_121
@@ -9,36 +9,51 @@ JavaFX用に独自にラッピングしたユーティリティクラス。
 - Since        : Mar 06, 2017
 - Last Changed : Mar 06, 2017
 
+ライブラリ概要
+--------------------------------------------------------------------------------
+
+FileChooserをラッピングし、メソッドのnull安全性を保証したクラス。
+
+showOpenDialog()といった各種メソッドの戻り値はすべてOptionalでラッピングされる。
+
+ダイアログを表示してファイル選択に成功した時、初期ディレクトリや初期ファイル名を
+自動で変更するオプションを持つ。このオプションはデフォルトでtrueになっている。
+
+Properteisインスタンスを渡すことで、開いたファイルの初期ディレクトリパスやファイ
+ル名をプロパティに自動でセットするオプションを持つ。
+
 使い方
 --------------------------------------------------------------------------------
 
-インスタンス生成時に必須プロパティとして、アプリ名とアプリのバージョンを渡します
-。これらのプロパティは`null`や空文字列を受け付けません。それらが渡されると例外を
+インスタンス生成時に必須プロパティとして、ExtensionFilterの説明文と拡張子文字列
+を渡します。これらのプロパティは`null`を受け付けません。それらが渡されると例外を
 返します。
 
 Builderコンストラクタを呼び出したあと、`Builder#build()`を呼び出すことで
-AboutStageのインスタンスが生成されます。
+MyFileChooserのインスタンスが生成されます。
 
 この時、`Builder#build()`する前に各種プロパティのセッターメソッドでチェーンする
 ことで、各種オプションを変更できます。
 
 ```java
-import jiro.javafx.stage.AboutStage;
 
-AboutStage aboutStage = AboutStage.Builder("App Title", "App Version")
-  .author("Author Name")
-  .blog("Blog Name")
-  .blogUrl("http://www.ownblog.com")
-  .css("/package/res/css/app.css")
-  .appIcon("/app/res/img/app_icon.png")
-  .authorIcon("/app/res/img/author_icon.png")
+import jiro.javafx.stage.MyFileChooser;
+
+MyFileChooser mfc = MyFileChooser.Builder("Text Files", "*.txt")
+  .initDir(".")
+  .initFileName("init_file")
+  .properties(properties)
+  .initDirKey("initDir")
+  .initFileNameKey("initFileName")
   .build();
 
-aboutStage.showAndWait();
+mfc.openFile().ifPresent(file -> {
+  doSomething(file);
+});
 ```
 
 更新履歴
 --------------------------------------------------------------------------------
 
-Ver1.0.0 : 2017/03/06  
+Ver1.0.0 : 2017/03/06
 - ライブラリ公開
