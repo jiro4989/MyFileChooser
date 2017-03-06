@@ -14,7 +14,10 @@ JavaFX用に独自にラッピングしたFileChooserクラス。
 
 FileChooserをラッピングし、メソッドのnull安全性を保証したクラス。
 
-showOpenDialog()といった各種メソッドの戻り値はすべてOptionalでラッピングされる。
+openFile()といった各種メソッドの戻り値はすべてOptionalでラッピングされる。
+
+ダイアログを開いたときの初期ディレクトリはデフォルトでカレントディレクトリになっ
+ている。よってinitDir(".")といった呼び出しは不要である。
 
 ダイアログを表示してファイル選択に成功した時、初期ディレクトリや初期ファイル名を
 自動で変更するオプションを持つ。このオプションはデフォルトでtrueになっている。
@@ -40,7 +43,6 @@ MyFileChooserのインスタンスが生成されます。
 import jiro.javafx.stage.MyFileChooser;
 
 MyFileChooser mfc = MyFileChooser.Builder("Text Files", "*.txt")
-  .initDir(".")
   .initFileName("init_file")
   .properties(properties)
   .initDirKey("initDir")
@@ -50,6 +52,7 @@ MyFileChooser mfc = MyFileChooser.Builder("Text Files", "*.txt")
 mfc.openFile().ifPresent(file -> {
   doSomething(file);
 });
+
 ```
 
 更新履歴
