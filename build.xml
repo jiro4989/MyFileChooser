@@ -10,7 +10,7 @@
   <property name="build.src.dir" value="src"/>
   <property name="build.classes.dir" value="classes"/>
   <property name="build.javadoc.dir" value="doc"/>
-  <property name="jar.name" value="my-file-chooser-1.0.0.jar"/>
+  <property name="jar.name" value="my-file-chooser-1.0.1.jar"/>
 
   <!--}}}-->
 

@@ -32,9 +32,11 @@ import javafx.stage.StageStyle;
  * </ul>
  *
  * @author Jiro
- * @version 1.0.0
+ * @version 1.1.0
  */
 public class MyFileChooser {
+
+  private File openedFile;
 
   private final FileChooser fc;
   private final boolean AUTO_SET_DIR;
@@ -323,6 +325,7 @@ public class MyFileChooser {
   private void setInitDir(File file) {//{{{
 
     if (file != null) {
+      openedFile = file;
 
       if (AUTO_SET_DIR) {
 
@@ -377,6 +380,8 @@ public class MyFileChooser {
     return fc.getInitialDirectory();
 
   }//}}}
+
+  public Optional<File> openedFile() { return Optional.ofNullable(openedFile); }
 
   // ************************************************************
   //
