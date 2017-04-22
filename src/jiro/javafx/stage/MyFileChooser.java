@@ -32,7 +32,7 @@ import javafx.stage.StageStyle;
  * </ul>
  *
  * @author Jiro
- * @version 1.1.0
+ * @version 1.1.1
  */
 public class MyFileChooser {
 
@@ -381,7 +381,7 @@ public class MyFileChooser {
 
   }//}}}
 
-  public Optional<File> openedFile() { return Optional.ofNullable(openedFile); }
+  public Optional<File> getOpenedFile() { return Optional.ofNullable(openedFile); }
 
   // ************************************************************
   //
